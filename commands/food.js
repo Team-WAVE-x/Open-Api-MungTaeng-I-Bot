@@ -18,7 +18,7 @@ module.exports = {
         exampleEmbed.addFields(
           {
             name: JSON.stringify(restrts.row[i].RESTRT_NM).replace(/\"/gi, ""),
-            value: JSON.stringify(restrts.row[i].REPRSNT_FOOD_NM).replace(/\"/gi, "")
+            value: "*주메뉴* :"+JSON.stringify(restrts.row[i].REPRSNT_FOOD_NM).replace(/\"/gi, "")+'\n```'+JSON.stringify(restrts.row[i].REFINE_ROADNM_ADDR).replace(/\"/gi, "")+'```'
           })
           i++
       }

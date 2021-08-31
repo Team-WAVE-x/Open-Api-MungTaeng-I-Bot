@@ -30,13 +30,3 @@ client.on("message", (message) => {
 });
 
 client.login(token);
-
-/*function getcat() {
-	request('https://api.thecatapi.com/v1/images/search', function (error, response, body) {
-		console.error('error:', error);
-		cat = JSON.parse(body);
-		asdf = cat[0].url;
-		//console.log(asdf);
-	});
-	return asdf;
-}*/

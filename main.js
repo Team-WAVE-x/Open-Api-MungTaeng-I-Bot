@@ -14,7 +14,6 @@ for (const file of commandFiles) {
 client.on("ready", () => {
   console.log(`On`);
 });
-
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).trim().split(/ +/);

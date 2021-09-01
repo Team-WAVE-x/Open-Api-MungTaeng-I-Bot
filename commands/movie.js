@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js');
+//보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 보류 
+/*const { MessageEmbed } = require('discord.js');
 var request = require('request');
 let i = 0;
 const { NaverClientId, NaverClientSecret } = require("../settings.json");
@@ -44,4 +45,4 @@ module.exports = {
 
     }
 
-}
+}*/

@@ -8,6 +8,7 @@ module.exports = {
             .setTitle("**Help**")
             .addField(':help', '명령어 목록 및 도움말을 보여줍니다')
             .addField(':맛집 (시/군명)', '"경기도"에 있는 맛집들을 보여줍니다')
+            .addField(':영화 (영화제목)', '영화의 정보를 보여줍니다')
             .addField(':고양이', '고양이 사진을 랜덤하게 보여줍니다')
             .addField(':강아지', '강아지 사진을 랜덤하게 보여줍니다')
             .setTimestamp()

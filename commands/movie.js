@@ -19,25 +19,25 @@ module.exports = {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             const moviejson = JSON.parse(response.body);
-            console.log(moviejson.items[i].actor);
-            
+            console.log(moviejson.items[0]);
+            i = 0;
             while (i < moviejson.total) {
 
                 if (moviejson.items[i].actor == "") {
                     Embed.addFields(
                         {
                             name: moviejson.items[i].title.replace("<b>", "").replace("</b>", ""),
-                            value: "출연 배우 정보가 없습니다"+'\n'+JSON.stringify(moviejson.items[i].link).replace(/\"/gi, "")
+                            value: "출연 배우 정보가 없습니다" + '\n' + JSON.stringify(moviejson.items[i].link).replace(/\"/gi, "")
                         })
                 } else {
                     Embed.addFields(
                         {
                             name: moviejson.items[i].title.replace("<b>", "").replace("</b>", ""),
-                            value: JSON.stringify(moviejson.items[i].actor).replace(/\"/gi, "") +'\n'+JSON.stringify(moviejson.items[i].link).replace(/\"/gi, "")
+                            value: JSON.stringify(moviejson.items[i].actor).replace(/\"/gi, "") + '\n' + JSON.stringify(moviejson.items[i].link).replace(/\"/gi, "")
                         })
-                    }
-                    i++;
-                
+                }
+                i++;
+
             }
             return message.channel.send({ embeds: [Embed] });
         });

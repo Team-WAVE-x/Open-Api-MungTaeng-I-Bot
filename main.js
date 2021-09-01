@@ -12,6 +12,7 @@ for (const file of commandFiles) {
 }
 
 client.on("ready", () => {
+  client.user.setActivity(':help');
   console.log(`On`);
 });
 client.on("message", (message) => {

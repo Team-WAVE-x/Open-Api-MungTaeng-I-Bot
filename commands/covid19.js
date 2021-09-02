@@ -26,7 +26,7 @@ module.exports = {
                     {name: '누적 사망자', value: covid19json.TotalDeath+'(명)'},
                     {name: '격리, 치료중인 확진자', value: covid19json.NowCase+'(명)'})
                     .setTimestamp()
-                    .setFooter('MungtengI');
+                    .setFooter('Mungteng-I');
                 return message.channel.send({ embeds: [Embed] });
         });
     }

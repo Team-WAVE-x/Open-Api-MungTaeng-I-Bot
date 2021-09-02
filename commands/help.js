@@ -13,7 +13,7 @@ module.exports = {
             .addField(':고양이', '고양이 사진을 랜덤하게 보여줍니다')
             .addField(':강아지', '강아지 사진을 랜덤하게 보여줍니다')
             .setTimestamp()
-            .setFooter('MungtengI');
+            .setFooter('Mungteng-I');
 
         message.channel.send({ embeds: [exampleEmbed] });
     }

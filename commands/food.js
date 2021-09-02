@@ -13,7 +13,7 @@ module.exports = {
       if (response.body == '{"RESULT":{"CODE":"INFO-200","MESSAGE":"해당하는 데이터가 없습니다."}}') return message.channel.send('데이터가 없습니다');
 
       let restrts = JSON.parse(response.body).PlaceThatDoATasteyFoodSt[1];
-      var Embed = new MessageEmbed().setTitle("맛집");
+      var Embed = new MessageEmbed().setTitle("").setColor('#0099ff');
 
       while (i < restrts.row.length) {
         Embed.addFields(

@@ -1,7 +1,6 @@
-const asdf = require("discord-buttons")
-
 module.exports = {
-    name: "샌즈",
-    execute(message) {
-  
-    }}
+  name: '샌즈',
+  execute (message) {
+
+  }
+}

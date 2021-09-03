@@ -1,9 +1,9 @@
-const request = require('request');
+const { get } = require('superagent')
+
 module.exports = {
-  name: "고양이",
-  execute(message) {
-    request('https://api.thecatapi.com/v1/images/search', function (error, response, body) {
-      return message.channel.send(JSON.parse(body)[0].url);
-    });
-  },
-};
+  name: '고양이',
+  async execute (message) {
+    const res = await get('https://api.thecatapi.com/v1/images/search')
+    message.channel.send(res.body[0].url)
+  }
+}

@@ -5,7 +5,7 @@ const { covid19 } = require("../settings.json");
 module.exports = {
     name: "코로나",
     execute(message) {
-        var options = {
+        const options = {
             'method': 'GET',
             'url': encodeURI('https://api.corona-19.kr/korea/?serviceKey=' + covid19),
             'headers': {
@@ -14,12 +14,11 @@ module.exports = {
         };
         request(options, function (error, response) {
             if (error) throw new Error(error);
-            let covid19json = JSON.parse(response.body);
+            const covid19json = JSON.parse(response.body);
             console.log(JSON.parse(response.body).TotalCase);
-            var Embed = new MessageEmbed()
+            const Embed = new MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('코로나19 현황')
-                .setColor('#0099ff')
                 .addFields(
                     {name: '누적 확진자', value: covid19json.TotalCase+'(명)'},
                     {name: '누적 완치자', value: covid19json.TotalRecovered+'(명)'},

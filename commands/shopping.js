@@ -1,14 +1,13 @@
 const { MessageEmbed } = require('discord.js');
 const request = require('request');
 const { NaverClientId, NaverClientSecret } = require("../settings.json");
-let i=0
 
 module.exports = {
     name: "쇼핑",
     execute(message) {
         const args = message.content.split(" ");
 
-        var options = {
+        const options = {
             'method': 'GET',
             'url': encodeURI('https://openapi.naver.com/v1/search/shop.json?query=' + `${args[1]}`),
             'headers': {
@@ -20,7 +19,7 @@ module.exports = {
             if (error) throw new Error(error);
             const shopjson = JSON.parse(response.body);
            //console.log(shopjson.items[0]);
-           var Embed = new MessageEmbed().setTitle('*' + `${args[1]}` + '* 의 쇼핑 정보입니다').setColor('#0099ff');
+           const Embed = new MessageEmbed().setTitle('*' + `${args[1]}` + '* 의 쇼핑 정보입니다').setColor('#0099ff');
             i = 0;
             while (i < shopjson.items.length) {
 

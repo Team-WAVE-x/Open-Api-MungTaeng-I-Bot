@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-var request = require('request');
+const request = require('request');
 const { restaurantKEY } = require("../settings.json");
-let i = 0;
 
 module.exports = {
   name: "맛집",
@@ -12,8 +11,8 @@ module.exports = {
       if (error) throw new Error(error);
       if (response.body == '{"RESULT":{"CODE":"INFO-200","MESSAGE":"해당하는 데이터가 없습니다."}}') return message.channel.send('데이터가 없습니다');
 
-      let restrts = JSON.parse(response.body).PlaceThatDoATasteyFoodSt[1];
-      var Embed = new MessageEmbed().setTitle("").setColor('#0099ff');
+      const restrts = JSON.parse(response.body).PlaceThatDoATasteyFoodSt[1];
+      const Embed = new MessageEmbed().setTitle("").setColor('#0099ff');
 
       while (i < restrts.row.length) {
         Embed.addFields(

@@ -31,7 +31,7 @@ module.exports = {
                             +'/'+JSON.stringify(shopjson.items[i].category2).replace(/\"/gi, "") 
                             +'/'+JSON.stringify(shopjson.items[i].category3).replace(/\"/gi, "") 
                             + '\n' + JSON.stringify(shopjson.items[i].link).replace(/\"/gi, "")
-                            + '\n최적가: ' + JSON.stringify(shopjson.items[i].lprice).replace(/\"/gi, "")
+                            + '\n최저가: ' + JSON.stringify(shopjson.items[i].lprice).replace(/\"/gi, "")
                         })
                 i++;
             }

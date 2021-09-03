@@ -1,29 +1,37 @@
-const { MessageEmbed } = require('discord.js');
-const request = require('request');
-const { restaurantKEY } = require("../settings.json");
+const { get } = require('superagent')
+const { MessageEmbed } = require('discord.js')
+const { restaurantKEY } = require('../settings.json')
 
 module.exports = {
-  name: "맛집",
-  execute(message) {
-    const args = message.content.split(" ");
-    i = 0
-    request(encodeURI('https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt?SIGUN_NM=' + `${args[1]}` + '&Type=json&' + 'pSize=100&KEY=' + restaurantKEY), function (error, response) {
-      if (error) throw new Error(error);
-      if (response.body == '{"RESULT":{"CODE":"INFO-200","MESSAGE":"해당하는 데이터가 없습니다."}}') return message.channel.send('데이터가 없습니다');
+  name: '맛집',
+  async execute (message, args) {
+    const url = new URL('https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt')
 
-      const restrts = JSON.parse(response.body).PlaceThatDoATasteyFoodSt[1];
-      const Embed = new MessageEmbed().setTitle("").setColor('#0099ff');
+    url.searchParams.set('SIGUN_NM', args[1])
+    url.searchParams.set('Type', 'json')
+    url.searchParams.set('pSize', '100')
+    url.searchParams.set('KEY', restaurantKEY)
 
-      while (i < restrts.row.length) {
-        Embed.addFields(
-          {
-            name: restrts.row[i].RESTRT_NM.replace(/\"/gi, ""),
-            value: "*주메뉴* :" + restrts.row[i].REPRSNT_FOOD_NM.replace(/\"/gi, "") + '\n```' + restrts.row[i].REFINE_ROADNM_ADDR.replace(/\"/gi, "")
-              + '\n' + restrts.row[i].TASTFDPLC_TELNO.replace(/\"/gi, "") + '```'
-          })
-        i++
-      }
-      return message.channel.send({ embeds: [Embed] });
-    });
+    const res = await get(url)
+
+    if (res.text.includes('해당하는 데이터가 없습니다.')) {
+      message.channel.send('데이터가 없습니다')
+      return
+    }
+
+    const datas = res.body.PlaceThatDoATasteyFoodSt[1].row
+    const embed = new MessageEmbed({ color: 0x0099ff })
+
+    for (const data of datas) {
+      embed.addField(
+        data.RESTRT_NM.replace(/"/gi, ''),
+        '*주메뉴* :' +
+          data.REPRSNT_FOOD_NM.replace(/"/gi, '') + '\n```' +
+          data.REFINE_ROADNM_ADDR.replace(/"/gi, '') + '\n' +
+          data.TASTFDPLC_TELNO.replace(/"/gi, '') + '```'
+      )
+    }
+
+    message.channel.send(embed)
   }
-};
+}

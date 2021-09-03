@@ -1,9 +1,9 @@
-const request = require('request');
+const { get } = require('superagent')
+
 module.exports = {
-  name: "강아지",
-  execute(message) {
-    request('https://dog.ceo/api/breeds/image/random', function (error, response, body) {
-      return message.channel.send(JSON.parse(body).message);
-    });
-  },  
-};
+  name: '강아지',
+  async execute (message) {
+    const res = await get('https://dog.ceo/api/breeds/image/random')
+    message.channel.send(res.message)
+  }
+}

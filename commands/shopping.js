@@ -1,40 +1,30 @@
-const { MessageEmbed } = require('discord.js');
-const request = require('request');
-const { NaverClientId, NaverClientSecret } = require("../settings.json");
+const { get } = require('superagent')
+const { MessageEmbed } = require('discord.js')
+const { NaverClientId, NaverClientSecret } = require('../settings.json')
 
 module.exports = {
-    name: "쇼핑",
-    execute(message) {
-        const args = message.content.split(" ");
+  name: '쇼핑',
+  async execute (message, args) {
+    const res = await get('https://openapi.naver.com/v1/search/shop.json?query=' + args[1])
+      .set('X-Naver-Client-Id', NaverClientId)
+      .set('X-Naver-Client-Secret', NaverClientSecret)
 
-        const options = {
-            'method': 'GET',
-            'url': encodeURI('https://openapi.naver.com/v1/search/shop.json?query=' + `${args[1]}`),
-            'headers': {
-                'X-Naver-Client-Id': NaverClientId,
-                'X-Naver-Client-Secret': NaverClientSecret
-            }
-        };
-        request(options, function (error, response) {
-            if (error) throw new Error(error);
-            const shopjson = JSON.parse(response.body);
-           //console.log(shopjson.items[0]);
-           const Embed = new MessageEmbed().setTitle('*' + `${args[1]}` + '* 의 쇼핑 정보입니다').setColor('#0099ff');
-            i = 0;
-            while (i < shopjson.items.length) {
+    const embed = new MessageEmbed({
+      title: `*${args[1]}* 의 쇼핑 정보입니다`,
+      color: 0x0099ff
+    })
 
-                    Embed.addFields(
-                        {
-                            name: shopjson.items[i].title.replace("<b>", "").replace("</b>", ""),
-                            value:JSON.stringify(shopjson.items[i].category1).replace(/\"/gi, "")
-                            +'/'+JSON.stringify(shopjson.items[i].category2).replace(/\"/gi, "") 
-                            +'/'+JSON.stringify(shopjson.items[i].category3).replace(/\"/gi, "") 
-                            + '\n' + JSON.stringify(shopjson.items[i].link).replace(/\"/gi, "")
-                            + '\n최저가: ' + JSON.stringify(shopjson.items[i].lprice).replace(/\"/gi, "")
-                        })
-                i++;
-            }
-            return message.channel.send({ embeds: [Embed] });
-        });
+    for (const data of res.body.items) {
+      embed.addField(
+        data.title.replace('<b>', '').replace('</b>', ''),
+        JSON.stringify(data.category1).replace(/"/gi, '') +
+          '/' + JSON.stringify(data.category2).replace(/"/gi, '') +
+          '/' + JSON.stringify(data.category3).replace(/"/gi, '') +
+          '\n' + JSON.stringify(data.link).replace(/"/gi, '') +
+          '\n최저가: ' + JSON.stringify(data.lprice).replace(/"/gi, '')
+      )
     }
-};
+
+    message.channel.send(embed)
+  }
+}
